@@ -17,7 +17,7 @@ class TasksResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'done' => (bool)$this->is_completed,
+            'done' => (bool) $this->is_completed,
         ];
     }
 }

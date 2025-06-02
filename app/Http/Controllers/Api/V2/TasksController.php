@@ -17,8 +17,11 @@ class TasksController extends Controller
      */
     public function index()
     {
+        //var_dump(auth()->user());
+        //die();
         return TasksResource::collection(auth()->user()->tasks()->get());
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -33,17 +36,19 @@ class TasksController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show($id)//Tasks $tasks
     {
+
         $task = Tasks::find($id);
-        Gate::authorize("view", $task);
+        Gate::authorize('view', $task);
         return TasksResource::make($task);
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateTasksRequest $request, $id)
+    public function update(UpdateTasksRequest $request, $id)//Tasks $tasks
     {
         $tasks = Tasks::find($id);
         Gate::authorize('view', $tasks);
@@ -55,11 +60,11 @@ class TasksController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy($id)//Tasks $tasks
     {
         $tasks = Tasks::find($id);
         Gate::authorize('view', $tasks);
-        $status = $tasks->delete();
+        $tasks->delete();
         $tasks->refresh();
         return response()->noContent();
     }
@@ -67,10 +72,10 @@ class TasksController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function complete(Request $request, $id)
+    public function complete(Request $request, $id)//Tasks $tasks
     {
         $tasks = Tasks::find($id);
-        $tasks->is_complited = $request->is_complited;
+        $tasks->is_complited = $request->is_complited;//??? done
         $tasks->save();
 
         return TasksResource::make($tasks);
