@@ -16,7 +16,7 @@ class EmployeeTableSeeder extends Seeder
         for ($i = 1; $i <= 5; $i++) {
             $surname = $faker->lastName;
             $name = $faker->firstName;
-            $patronymic = $faker->middleName ?? $faker->firstName . 'ович'; // Fallback for older faker versions
+            $patronymic = $faker->middleName ?? $faker->firstName . 'ович'; // Фолбек для старіших версій Faker
 
             $employees[] = [
                 'employee_id' => $i,
